@@ -1,0 +1,93 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: campusconnect
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: campusconnect_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/campusconnect_db"
+      SPRING_DATASOURCE_USERNAME: "campusconnect"
+      SPRING_DATASOURCE_PASSWORD: "password123"
+      JWT_SECRET: "campusconnect_ultra_secure_secret_sharing_key_2026_modern_glassmorphism"
+      JWT_EXPIRATION: "3600000"
+    depends_on:
+      - postgres
+
+  post-service:
+    build:
+      context: ./post-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8086:8086"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/campusconnect_db"
+      SPRING_DATASOURCE_USERNAME: "campusconnect"
+      SPRING_DATASOURCE_PASSWORD: "password123"
+      JWT_SECRET: "campusconnect_ultra_secure_secret_sharing_key_2026_modern_glassmorphism"
+      JWT_EXPIRATION: "3600000"
+    depends_on:
+      - postgres
+
+  request-service:
+    build:
+      context: ./request-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/campusconnect_db"
+      SPRING_DATASOURCE_USERNAME: "campusconnect"
+      SPRING_DATASOURCE_PASSWORD: "password123"
+      JWT_SECRET: "campusconnect_ultra_secure_secret_sharing_key_2026_modern_glassmorphism"
+      JWT_EXPIRATION: "3600000"
+    depends_on:
+      - postgres
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/campusconnect_db"
+      SPRING_DATASOURCE_USERNAME: "campusconnect"
+      SPRING_DATASOURCE_PASSWORD: "password123"
+      JWT_SECRET: "campusconnect_ultra_secure_secret_sharing_key_2026_modern_glassmorphism"
+      JWT_EXPIRATION: "3600000"
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - auth-service
+      - post-service
+      - request-service
+      - notification-service
+
+volumes:
+  db_data:

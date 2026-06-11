@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: request-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: request-service
+  template:
+    metadata:
+      labels:
+        app: request-service
+    spec:
+      containers:
+      - name: request-service
+        image: request-service:latest
+        ports:
+        - containerPort: 8087
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:postgresql://postgres-service:5432/campusconnect_db"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "campusconnect"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "password123"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: request-service
+spec:
+  selector:
+    app: request-service
+  ports:
+    - protocol: TCP
+      port: 8087
+      targetPort: 8087
