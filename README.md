@@ -1,16 +1,14 @@
-# CampusConnect 🎓
-
-![CampusConnect Banner](https://via.placeholder.com/1200x300?text=CampusConnect+-+Connecting+Campuses)
+# CampusConnect 
 
 A powerful, microservices-based campus networking and communication platform designed to streamline student interaction, facilitate peer-to-peer assistance, and build a stronger campus community.
 
-## 📖 Overview
+##  Overview
 
 CampusConnect is a comprehensive platform built to solve common campus challenges. Whether you've lost an item, found something valuable, or need academic help, CampusConnect provides a centralized, secure, and professional environment for students and staff to connect. 
 
 The application is built on a robust, scalable **Microservices Architecture** utilizing **Spring Boot** for the backend, **React** for a dynamic frontend, and **PostgreSQL** for persistent storage, all containerized and orchestrated with **Docker**.
 
-## ✨ Key Features
+##  Key Features
 
 - **Secure Authentication:** Robust user registration and login system with strict access control and automatic redirects for unauthenticated users.
 - **Lost & Found System:** Create and browse posts for lost or found items. Includes support for detailed descriptions and image uploads.
@@ -19,7 +17,7 @@ The application is built on a robust, scalable **Microservices Architecture** ut
 - **Reputation System:** Earn reputation points by actively helping others and contributing to the community (e.g., resolving requests, returning items).
 - **Interactive Dashboard:** Track your contributions, view your posts, and monitor your reputation score in a sleek, professional interface.
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 ### Frontend
 - **React.js**: Dynamic, responsive user interface.
@@ -38,7 +36,7 @@ The application is built on a robust, scalable **Microservices Architecture** ut
 - **Docker & Docker Compose**: Containerization for consistent development and deployment environments.
 - **Kubernetes (k8s)**: Deployment configurations for production scaling.
 
-## 🏗️ Architecture
+##  Architecture
 
 The backend is decomposed into focused microservices to ensure scalability and maintainability:
 
@@ -47,7 +45,7 @@ The backend is decomposed into focused microservices to ensure scalability and m
 3. **Request Service (`/request-service`)**: Manages help requests and peer interactions.
 4. **Notification Service (`/notification-service`)**: Processes and delivers alerts to users.
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -92,7 +90,7 @@ If you prefer to run the services individually for development:
    npm start
    ```
 
-## 📂 Directory Structure
+##  Directory Structure
 
 ```text
 CampusConnect/
@@ -107,7 +105,7 @@ CampusConnect/
 └── README.md             # Project documentation
 ```
 
-## 🤝 Contributing
+##  Contributing
 
 We welcome contributions to make CampusConnect even better!
 1. Fork the repository.
